@@ -38,11 +38,7 @@ Para executar o programa, ainda com o terminal/prompt de comando aberto, siga os
 ---
 ## Output
 
-A saída do script será os gráficos da análise realizada que serão armazenados no diretório `imgs/`, esta análise discute sobre qual é o melhor $`\alpha`$ local dentre os estudados, analisando a partir do erro e após isso as predições.
-
-```math
-SE = \frac{\sigma}{\sqrt{n}}
-```
+A saída do script será os gráficos da análise realizada que serão armazenados no diretório `imgs/`, esta análise discute sobre qual é o melhor alpha dentre os estudados, analisando a partir do erro e após isso as predições.
 
 ---
 ### **Resultados obtidos**
