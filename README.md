@@ -5,6 +5,7 @@ A proposta deste trabalho consiste em implementar a regressão linear e plotar o
 que os pesos devem ser inicializados com 0.
 
 *O código fonte do programa está disponibilizado em um Jupyter Notebook e um arquivo Python*
+
 ---
 ## Requisitos
 
