@@ -4,7 +4,7 @@
 A proposta deste trabalho consiste em implementar a regressão linear e plotar os valores de J, sendo
 que os pesos devem ser inicializados com 0.
 
-*O código fonte do programa está disponibilizado em um Jupyter Notebook e um arquivo Python*
+*O código fonte do programa está disponibilizado num Jupyter Notebook num arquivo Python.*
 
 ---
 ## Requisitos
