@@ -38,15 +38,19 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'first_insight.pdf', bbox_inches='tight')
+plt.close()
 
 plt.scatter(x,y, label= 'Data', s=30, marker='x', c='r')
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'data.pdf', bbox_inches='tight')
+plt.close()
 
 plt.scatter(x,y, label= 'Data', s=30, marker='x', c='r')
 plt.plot(x, [theta[0]+(theta[1]*i) for i in x], label= 'Predicted', c='orange')
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'first_predicted.pdf', bbox_inches='tight')
+plt.close()
+
 
 plt.yscale('log')
 alpha_values = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07,0.08,0.09,0.1]
@@ -63,6 +67,7 @@ plt.ylabel(r'J($\theta$)')
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.axis(ymax=10e2,ymin=8e-4)
 plt.savefig(os.path.join('..','imgs/')+'overflow_insights.pdf', bbox_inches='tight')
+plt.close()
 
 plt.yscale('log')
 alpha_values = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07]
@@ -78,6 +83,7 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'lr_100it.pdf', bbox_inches='tight')
+plt.close()
 
 plt.yscale('log')
 for alpha,err in err_values.items():
@@ -87,7 +93,7 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'lower_interval.pdf', bbox_inches='tight')
-
+plt.close()
 
 plt.yscale('log')
 for alpha,err in err_values.items():
@@ -97,6 +103,7 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'higher_interval_100it.pdf', bbox_inches='tight')
+plt.close()
 
 plt.yscale('log')
 NUM_IT = 1000
@@ -110,6 +117,7 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'lr_1000it.pdf', bbox_inches='tight')
+plt.close()
 
 plt.yscale('log')
 for alpha,err in err_values.items():
@@ -119,6 +127,7 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'higher_interval_1000it.pdf', bbox_inches='tight')
+plt.close()
 
 plt.yscale('log')
 for alpha,err in err_values.items():
@@ -128,6 +137,7 @@ plt.xlabel('Iterações')
 plt.ylabel(r'J($\theta$)')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'max_zoom.pdf', bbox_inches='tight')
+plt.close()
 
 plt.scatter(x,y, label= 'Data', s=30, marker='x', c='r')
 for k,v in theta_values.items():
@@ -136,6 +146,7 @@ plt.xlabel('X')
 plt.ylabel('y')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'all_predictions.pdf', bbox_inches='tight')
+plt.close()
 
 alpha = 0.07
 _, new_theta = linear_regression(num_it=NUM_IT, alpha=alpha, theta=initial_theta)
@@ -146,3 +157,4 @@ plt.xlabel('X')
 plt.ylabel('y')    
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 plt.savefig(os.path.join('..','imgs/')+'FINAL_predicted.pdf', bbox_inches='tight')
+plt.close()
