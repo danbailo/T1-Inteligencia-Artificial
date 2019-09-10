@@ -432,7 +432,7 @@ de Aprendizagem(Learning Rate) do algoritmo. \\
 % Inicialize os pesos com 0 e utilize a abordagem discutida em sala para encontrar os melhores valores de taxa de aprendizagem e número de iterações.
 
 Este trabalho está disponibiliado num repositório do {\it GitHub} para melhor controle do versionamento do 
-programa, e o mesmo se encontra em um \textit{Jupyter Notebook}.\\~\\
+programa, e o mesmo se encontra em um \textit{Jupyter Notebook (Python)} e em um script escrito em \textit{Python} também.\\~\\
 \url{https://github.com/danbailo/T1-Inteligencia_Artificial}
 \clearpage
 
@@ -520,8 +520,9 @@ Considere $x'$ a entrada, então:
 \clearpage
 
 \subsection{Cáculo da Regressão Linear em Python}
-A função abaixo realiza o cálculo da Regressão Linear na sua forma matricial, foi adotado essa forma, pois
-assim é realizado menos operações e sendo assim, também é paralelizavel.
+A função abaixo realiza o cálculo da Regressão Linear na sua forma matricial, foi escolhido essa forma
+para ser programado, pois assim é realizado menos operações e também operações matriciais são paralelizáveis,
+portanto, para enormes \textit{Datasets}, é inviável realizar o cálculo de forma sequencial(iterativa).
 
 Esta função, recebe como parâmetro o número de iterações que irá treinar o algoritmo, o $\alpha$, que é a taxa de
 aprendizagem, e os valores de $\theta$ inicial, que são os pesos; é importante observar que, nesse caso, a
@@ -551,10 +552,10 @@ variável ''theta'' é um vetor coluna $2x1$.\\
 
 \section{Análise dos Resultados}
 
-Considerando os dados de teste que foram disponibilizados pelo professor, com a entrada representando o eixo X, 
-e a saída o eixo Y, o algoritmo tem a função de predizer o melhor valor para a saída, e para isso, foi utilizado
-algumas técnicas dispondo de gráficos para selecionar o melhor valor de $\alpha$ dentre o intervalo conhecido para 
-os testes.
+Considerando os dados de teste que foram disponibilizados, com a entrada representando o eixo X, 
+e a saída o eixo Y, o algoritmo tem o objetivo de predizer a saída, visto que existe uma 
+relação linear entre os dados, e para isso, foi utilizado algumas técnicas dispondo de gráficos para 
+selecionar o melhor valor de $\alpha$ local dentre o intervalo conhecido para os testes.
 
 \begin{figure}[!h]
     \centering
@@ -564,10 +565,13 @@ os testes.
 \end{figure}
 \clearpage
 
-Esse intervalo para os valores selecionar os valores de $\alpha$, foi gerado partindo de uma hipótese de valores 
-desconhecidos para entender como o algoritmo iria se comportar.\\
+Os valores deste intervalo mencionado acima, foram escolhidos partindo de uma hipótese, 
+e a partir desta hipótese, foi possível entender como o \textit{erro} iria se comportar para
+aumentar ou diminuir o valor deste $\alpha$. É importante ressaltar, que quanto menor o erro, ou seja,
+quanto mais próximo de $0$, melhor será a predição do algoritmo. No melhor caso, onde o erro é $0$, a
+predição é perfeita.\\
 
-\textbf{Para todos os testes, os pesos ($\theta$) foram inicializados com $(0,0)$ e inicialmente foi-se 
+\textbf{Para todos os testes, os pesos ($\theta$) foram inicializados com $\theta_0, \theta_1$=$(0,0)$ e inicialmente foi-se 
 utilizada 100 iterações para observar o comportamento do algoritmo.\\}
 
 Com isso, o primeiro insight obtido após selecionar um valor para o $\alpha$, foi de que era necessário diminuir
@@ -601,25 +605,29 @@ notar que, quanto mais próximo de $0$, melhor será a solução que o algoritmo
 Neste gráfico, é possivel observar que, para alguns valores de $\alpha$, como o próprio $0.1$, que já foi testado anteriormente, e também,
 $0.08$ e $0.09$, convergem da solução e ''estouram'' exponencialmente, portanto esses valores serão descartados para as próximas análises.
 
-É possivel também que, para alguns valores temos uma convergência mais rápida, ou seja, essses valores se aproximam mais rápido de $0$; isso significa que, na \textit{Descida de Gradiente}, o algoritmo irá realizar
-um salto bem próximo de uma boa solução(valor próximo de $0$), em contrapartida, alguns valores também convergem, mas de forma mais lenta.
+É possivel notar também que, para alguns valores temos uma convergência mais rápida, ou seja, essses valores se aproximam mais rápido de $0$; isso significa que, na \textit{Descida de Gradiente}, o algoritmo irá realizar
+um salto bem próximo de uma boa solução(valor próximo de $0$), e em contrapartida, alguns valores também convergem, mas de forma mais lenta.
 
-Este gráfico representa o que conhecemos por \textit{erro}...
+% Este gráfico representa o que conhecemos por \textit{erro}...
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\textwidth]{../imgs/overflow_insights.pdf}
-    \caption{Primeiro insight obtido a partir de um valor de $\alpha$ inicial.}
+    \caption{Verificando o erro a partir de diferentes valores de $\alpha$.}
     \label{fig:overflow_insights}
 \end{figure}
 
-Logo, a seguinte questão é levantada: ''Para esses valores dispostos de $\alpha$, o valor que converge mais rápido,
-será de fato o melhor valor para utilizar no treinamento do algoritmo?''
+Logo, a seguinte questão é levantada: ''Para este modelo, o valor de $\alpha$ que converge mais rápido,
+será de fato o melhor valor para utilizar no treinamento do algoritmo?''.\\
+
+Para responder essa questão, foi realizado alguns testes para a quantidade atual de iterações e posteriormente será aumentado este
+número, para verificar como que o modelo se comporta quando submetido a uma quantidade maior de iterações(treinamento).
 \clearpage
 
 No gráfico abaixo, pode-se observar melhor como está atualmente o comportamento do algoritmo para cada
 valor de $\alpha$. De primeira impressão, é possivel ver que o valor que mais demora a convergir é $0.07$, porém,
-o mesmo é o que está mais próximo do eixo, pode-se afirmar que para 100 iterações, este seria um bom valor.
+o mesmo é o que está mais próximo do eixo, pode-se afirmar que para 100 iterações, este seria um bom valor,
+mas ainda não sabemos se este será de fato o melhor, visto a sua demora a convergir.
 
 Entretanto, não é possivel saber de fato, qual é o valor que converge mais rápido, pois nessa escala, os valores
 estão muito próximos um do outro.
@@ -631,38 +639,40 @@ estão muito próximos um do outro.
 \end{figure}
 
 Com isso, o gráfico abaixo foi estreito num intervalo menor, relacionado a figura \ref{fig:lr_100it}. Agora é possível
-ver com mais clareza que o valor $0.04$, referente a linha vermelha, é o valor que converge mais rápido.
+ver com mais clareza que o valor $0.04$, referente a linha vermelha, é o valor que converge mais rápido. Portanto,
+este pode também pode ser considerado um bom valor para realizar o treinamento.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.8\textwidth]{../imgs/lower_interval.pdf}
-    \caption{Intervalo estreito mais a esquerda.}
+    \caption{Intervalo estreito mais a esquerda do eixo.}
     \label{fig:lower_interval}
 \end{figure}
 \clearpage
 
 Continuando a análise para selecionar o valor de $\alpha$, agora veremos como está se comportando os valores
-num intervalo mais estrito ao final do eixo x. Assim como na figura \ref{fig:lr_100it}, como os valores estão
+num intervalo mais restrito ao final do eixo x. Assim como na figura \ref{fig:lr_100it}, como os valores estão
 bem diferentes entre si, o comportamento é o mesmo que já foi notado.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.8\textwidth]{../imgs/higher_interval_100it.pdf}
-    \caption{Intervalo estreito mais a direita.}
+    \caption{Intervalo estreito mais a direita do eixo.}
     \label{fig:higher_interval_100it}
 \end{figure}
 
-Porém, é importante lembrar que, este treinamento foi utilizando somente \textbf{100 iterações}, esse é um numero
+Porém, é importante lembrar que, para este treinamento foi utilizando somente \textbf{100 iterações}, este é um número
 pequeno de iterações, mesmo sabendo que os dados dispostos não são tão grandes; porém, para obter uma análise
-mais concreta para selecionar um bom $\alpha$ predizer os valores de y, será realizado outra análise, mas agora
+mais concreta para selecionar um bom $\alpha$ para predizer os valores de y, será realizado outra análise, mas agora
 utilizando \textbf{1000 iterações}, e será observado se o comportamento do modelo continua o mesmo, ou se sofre alguma
 alteração durante o treinamento.
 \clearpage
 
 \subsection{Treinamento utilizando 1000 iterações}
 
-Ao realizar o treinamento utilizando 1000 iterações para treinar o algoritmo, pode-se ver que alguns valores, para
-essa quantidade de iterações, temos alguns valores que convergiram a partir das $500$ iterações e outros nem com 
-essa quantidade de iterações conseguiram convergir, mesmo que com $100$ iterações, pareciam ser bons valores, pelo
-fato de convergir mais rápido que outros valores.
+Ao realizar o treinamento utilizando 1000 iterações, pode-se notar que alguns valores de $\alpha$, 
+temos alguns valores que convergiram a partir das $500$ iterações e outros não, mesmo que com $100$ iterações,
+pareciam ser bons valores, pelo fato de convergir mais rápido que outros valores. 
+
+Logo, podemos afirmar que, não é pelo fato de uma solução convergir mais rápido, que esta será melhor que as outras.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\textwidth]{../imgs/lr_1000it.pdf}
@@ -670,12 +680,14 @@ fato de convergir mais rápido que outros valores.
     \label{fig:lr_100it}
 \end{figure}
 
-Porém, novamente como agora os valores estão muito próximos um do outro, é necessário ampliar o intervalo
-ao final do eixo X para saber de fato qual valor está mais abaixo no eixo y. Para isso, foi gerado dois gráficos,
-a figura \ref{fig:higher_interval_1000it} e \ref{fig:max_zoom}, as duas figuras estão estritos no intervalo $[990,1000]$ para $X$, e 
-$[10^{-3},10^{-1}]$, $[9.8$ x $10^{-4},1.06$ x $10^{-3}]$, respectivamente.
+Porém, novamente, como agora os valores estão muito próximos um do outro, é necessário ampliar o intervalo
+ao final do eixo x para saber de fato qual valor está com a menor amplitude em relação ao eixo y. Para isso, foi gerado dois gráficos,
+a figura \ref{fig:higher_interval_1000it} e \ref{fig:max_zoom}, as duas figuras estão estreitas no intervalo $[990,1000]$ para $X$, e 
+$[10^{-3},10^{-1}]$, $[9.8$ x $10^{-4},1.06$ x $10^{-3}]$, respectivamente.\\
 
-\clearpage
+No gráfico da figura \ref{fig:higher_interval_1000it}, é possivel notar a presença de mais de uma linha entre
+as cores \textit{verde} e \textit{rosa}, que representam os valores $0.03$ e $0.07$, respectivamente, mas não
+dá para distinguir qual valor de fato é este. 
 
 \begin{figure}[!h]
     \centering
@@ -684,9 +696,8 @@ $[10^{-3},10^{-1}]$, $[9.8$ x $10^{-4},1.06$ x $10^{-3}]$, respectivamente.
     \label{fig:higher_interval_1000it}
 \end{figure}
 
-No gráfico da figura \ref{fig:higher_interval_1000it}, é impossivel notar a presença de mais de uma linha entre
-as cores \textit{verde} e \textit{rosa}, que representam os valores $0.03$ e $0.07$, respectivamente. Porém, no 
-gráfico da figura \ref{fig:max_zoom}, é possível notar que ainda existem mais alguns valores neste intervalo.
+No gráfico da figura \ref{fig:max_zoom}, é pode-se observar quais são valores presentes neste intervalo, considerando
+que este intervalo de y é muito pequeno.
 
 \begin{figure}[!h]
     \centering
@@ -694,17 +705,28 @@ gráfico da figura \ref{fig:max_zoom}, é possível notar que ainda existem mais
     \caption{Zoom no intervalo.}
     \label{fig:max_zoom}
 \end{figure}
+\clearpage
 
 \section{Interpretação dos Resultados}
-Após estudarmos o comportamento do algoritmo para os $\alpha$ selecionados, podemos chegar numa conclusão; 
+Após estudarmos o comportamento do erro($J(\theta)$) deste modelo para os $\alpha$ selecionados, podemos de fato
+selecionar um valor de $\alpha$ global dentre os locais utilizados para estudo. Com o estudo do erro, é 
+possivel saber quando teremos um bom e um mau modelo, ou seja, quanto mais divergente do eixo for este erro,
+pior será o modelo. 
+
+O gráfico abaixo, mostra as predições para todos os valores de $\alpha$ estudados quando estes convergiam. 
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\textwidth]{../imgs/all_predictions.pdf}
-    \caption{Todas as predições para os valores de $\alpha$ estudados.}
+    \caption{Todas as predições para os $\alpha's$ convergentes.}
     \label{fig:all_predictions}
 \end{figure}
+\clearpage
 
+\section{Conclusão}
+Após as análises, podemos ver que o $\alpha$ que mais se mostrou próximo de uma solução exata foi o de valor $0.07$.
+
+Podemos ver que, dispersos no plano temos alguns $outliers$, mas de forma geral, existe uma relação linear entre os dados.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\textwidth]{../imgs/FINAL_predicted.pdf}
