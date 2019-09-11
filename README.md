@@ -11,6 +11,7 @@ que os pesos devem ser inicializados com 0.
 
 * `python3`
 * `pip3`
+* `texlive`
   
 ---
 ## Dependências
